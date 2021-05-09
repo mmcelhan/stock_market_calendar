@@ -3,7 +3,9 @@ Program that, given a date, returns if the stock market is open. This can be don
 
 
 MarketOpen('date').market_open
+
 such as
+
 MarketOpen('2023-05-29').market_open
 
 
