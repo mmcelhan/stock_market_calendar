@@ -1,12 +1,24 @@
 import datetime
 
+def strip_date(dt):
+    # takes a datetime and only keeps the date
+    if isinstance(dt, datetime.datetime):
+        dt = datetime.datetime(dt.year, dt.month, dt.day).date()
+
+    return dt
+
+
+def market_open(date):
+    date = strip_date(date)
+    return MarketOpen(date).market_open
+
 
 class MarketOpen:
     # class that, given an input date, will return if holiday with the method .market_open()
     def __init__(self, input_date):
         # get input date without anything else
         self.input_date = datetime.datetime.strptime(str(input_date), '%Y-%m-%d')
-        self.day_month = str(self.input_date.day) + '-' + str(self.input_date.month)  # get day and month
+        self.month_day = str(self.input_date.month) + '-' + str(self.input_date.day)  # get day and month
         self.weekday = self.input_date.weekday()  # get weekday
         self.market_open = True  # set market to open and set to false if exception occurs
 
@@ -22,11 +34,11 @@ class MarketOpen:
             self.market_open = False
 
     def is_not_christmas(self):
-        if self.day_month == '25-12':
+        if self.month_day == '12-25':
             self.market_open = False  # christmas day get some presents
-        elif (self.weekday == 0) & (self.day_month == '26-12'):  # Monday the 26th of January
+        elif (self.weekday == 0) & (self.month_day == '12-26'):  # Monday the 26th of January
             self.market_open = False
-        elif (self.weekday == 4) & (self.day_month == '24-12'):  # Friday the 24th of December
+        elif (self.weekday == 4) & (self.month_day == '12-24'):  # Friday the 24th of December
             self.market_open = False
 
     def is_not_labor_day(self):
@@ -63,9 +75,9 @@ class MarketOpen:
             self.market_open = False
 
     def is_not_independence_day(self):
-        if self.day_month == '4-7':
+        if self.month_day == '7-4':
             self.market_open = False  # new years day
-        elif (self.weekday == 0) & (self.day_month == '5-7'):  # Monday the 5th of July
+        elif (self.weekday == 0) & (self.month_day == '7-5'):  # Monday the 5th of July
             self.market_open = False
 
     def is_not_memorial_day(self):
@@ -76,9 +88,9 @@ class MarketOpen:
             self.market_open = False
 
     def is_not_new_years(self):
-        if self.day_month == '1-1':
+        if self.month_day == '1-1':
             self.market_open = False  # new years day
-        elif (self.weekday == 0) & (self.day_month == '1-2'):  # Monday the 2nd of January
+        elif (self.weekday == 0) & (self.month_day == '1-2'):  # Monday the 2nd of January
             self.market_open = False
         # Surprisingly if New Years is on a Saturday, there is no holiday at all
 
