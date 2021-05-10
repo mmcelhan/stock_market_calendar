@@ -1,12 +1,12 @@
 # stock_market_calendar
-Program that, given a date, returns if the stock market is open. This can be done by calling the class with a method:
+Program that, given a date, returns if the stock market is open. This can be done by calling the function:
 
 
-MarketOpen('date').market_open
+market_open(date)
 
 such as
 
-MarketOpen('2023-05-29').market_open
+market_open('2023-05-29')
 
 
 
