@@ -69,7 +69,14 @@ class MarketOpen(unittest.TestCase):
         self.assertTrue(mo.market_open(datetime.date(2021, 5, 7)))  # Check for datetime date
         self.assertTrue(mo.market_open(datetime.datetime(2021, 5, 7, 10, 23)))  # Check for datetime date
         # Check for datetime date, may change if you run on weekend
-        self.assertTrue(mo.market_open(datetime.datetime.now()))
+        #self.assertTrue(mo.market_open(datetime.datetime.now()))
+
+    def test_next_open_day(self):
+        self.assertEqual(mo.next_market_open_date('2021-05-13'), '2021-05-14')  # check for Friday
+        self.assertEqual(mo.next_market_open_date('2021-05-14'), '2021-05-17')  # check for Weekend
+        self.assertEqual(mo.next_market_open_date('2021-05-15'), '2021-05-17')  # check for day on weekend
+        self.assertEqual(mo.next_market_open_date('2021-01-15'), '2021-01-19')  # check for MLK
+        self.assertEqual(mo.next_market_open_date('2021-11-24'), '2021-11-26')  # check for Thanksgiving
 
 
 if __name__ == '__main__':

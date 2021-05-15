@@ -1,5 +1,6 @@
 import datetime
 
+
 def strip_date(dt):
     # takes a datetime and only keeps the date
     if isinstance(dt, datetime.datetime):
@@ -8,9 +9,29 @@ def strip_date(dt):
     return dt
 
 
+def to_datetime_date(date):
+    return datetime.datetime.strptime(str(strip_date(date)), '%Y-%m-%d').date()
+
+
+def to_string_date(date):
+    return str(date)
+
+
 def market_open(date):
     date = strip_date(date)
     return MarketOpen(date).market_open
+
+
+def next_market_open_date(date):
+    """ function that, given a date, returns the next date the market is open """
+    date = to_datetime_date(date)
+    next_day = date + datetime.timedelta(days=1)
+
+    while not market_open(next_day):
+        next_day = next_day + datetime.timedelta(days=1)
+
+    next_day = to_string_date(next_day)
+    return next_day
 
 
 class MarketOpen:
@@ -76,7 +97,7 @@ class MarketOpen:
 
     def is_not_independence_day(self):
         if self.month_day == '7-4':
-            self.market_open = False  # new years day
+            self.market_open = False  # new independence day
         elif (self.weekday == 0) & (self.month_day == '7-5'):  # Monday the 5th of July
             self.market_open = False
 
