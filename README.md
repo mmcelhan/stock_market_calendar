@@ -11,3 +11,5 @@ market_open('2023-05-29')
 
 
 This repo includes a unit testing file that can be used to test other dates that I haven't thought of
+
+Please send any questions or requests to MatthewMcElhaney@gmail.com
